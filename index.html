@@ -1,113 +1,185 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Badawi Farm</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badawi Farm</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #ffffff;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 5px;
-    }
-    p {
-      text-align: center;
-      color: #cbd5e1;
-      margin-top: 0;
-    }
-    .box {
-      background: #1e293b;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
-    .total {
-      margin-top: 15px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #22c55e;
-      text-align: center;
-    }
-    a {
-      display: block;
-      margin-top: 20px;
-      padding: 15px;
-      text-align: center;
-      background: #22c55e;
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 10px;
-    }
-    footer {
-      margin-top: 25px;
-      text-align: center;
-      font-size: 14px;
-      color: #94a3b8;
-    }
-  </style>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #fff;
+}
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.subtitle {
+  text-align: center;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+}
+.box {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 12px;
+}
+label {
+  margin-top: 10px;
+  display: block;
+}
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+.info {
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 5px;
+}
+.total {
+  margin-top: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #22c55e;
+  text-align: center;
+}
+.note {
+  background: #020617;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+a.btn {
+  display: block;
+  margin-top: 20px;
+  padding: 15px;
+  text-align: center;
+  background: #22c55e;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+}
+footer {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 14px;
+  color: #94a3b8;
+}
+.badge {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.badge span {
+  background: #020617;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>BADAWI FARM</h1>
-    <p>Telur Ayam Petelur • Grosir & Eceran</p>
+<div class="container">
 
-    <div class="box">
-      <label>Jenis Pembelian</label>
-      <select id="jenis" onchange="hitung()">
-        <option value="eceran">Eceran (Rp 27.500 / KG)</option>
-        <option value="grosir">Grosir (Rp 25.800 / KG)</option>
-      </select>
+<h1>BADAWI FARM</h1>
+<div class="subtitle">Telur Ayam Petelur • Grosir & Eceran</div>
 
-      <label style="margin-top:10px;">Jumlah (KG)</label>
-      <input type="number" id="jumlah" placeholder="Contoh: 10" oninput="hitung()">
+<div class="badge">
+  <span>🐔 Peternakan Sendiri</span>
+  <span>✅ Fresh Harian</span>
+  <span>🚚 Bisa Kirim</span>
+</div>
 
-      <div class="total" id="total">TOTAL: Rp 0</div>
-    </div>
+<div class="box">
+  <label>Nama Pembeli</label>
+  <input type="text" id="nama" placeholder="Contoh: Pak Budi" oninput="hitung()">
 
-    <a id="wa" href="#">🛒 Pesan via WhatsApp</a>
+  <label>Jenis Pembelian</label>
+  <select id="jenis" onchange="hitung()">
+    <option value="eceran">Eceran (Rp 27.500 / KG)</option>
+    <option value="grosir">Grosir (Rp 25.800 / KG)</option>
+  </select>
 
-    <footer>
-      Pembayaran: Tunai • Bank • DANA • ShopeePay<br>
-      © Badawi Farm
-    </footer>
+  <label>Jumlah (KG)</label>
+  <input type="number" id="jumlah" placeholder="Contoh: 10" oninput="hitung()">
+  <div class="info">ℹ️ Minimal grosir 10 KG • 1 Peti ± 15–16 KG</div>
+
+  <div class="total" id="total">TOTAL: Rp 0</div>
+
+  <div class="note" id="nota">
+    🧾 Nota akan muncul di sini
   </div>
+</div>
+
+<a class="btn" id="wa" href="#">🛒 Pesan via WhatsApp</a>
+
+<footer>
+  Pembayaran: Tunai • Bank • DANA • ShopeePay<br>
+  © Badawi Farm
+</footer>
+
+</div>
 
 <script>
-  function hitung() {
-    const jenis = document.getElementById("jenis").value;
-    const jumlah = Number(document.getElementById("jumlah").value || 0);
-    const harga = jenis === "eceran" ? 27500 : 25800;
-    const total = jumlah * harga;
+function hitung() {
+  const nama = document.getElementById("nama").value || "-";
+  const jenis = document.getElementById("jenis").value;
+  const jumlah = Number(document.getElementById("jumlah").value || 0);
+  const harga = jenis === "eceran" ? 27500 : 25800;
 
+  if (jenis === "grosir" && jumlah > 0 && jumlah < 10) {
     document.getElementById("total").innerText =
-      "TOTAL: Rp " + total.toLocaleString("id-ID");
-
-    document.getElementById("wa").href =
-      "https://wa.me/6282132698172?text=Pesan%20telur%20" +
-      jumlah + "KG%20(" + jenis + ")%20Total%20Rp%20" +
-      total.toLocaleString("id-ID");
+      "❌ Minimal Grosir 10 KG";
+    document.getElementById("nota").innerText =
+      "⚠️ Pembelian grosir minimal 10 KG";
+    return;
   }
+
+  const total = jumlah * harga;
+  const now = new Date();
+  const tanggal = now.toLocaleDateString("id-ID");
+  const jam = now.toLocaleTimeString("id-ID");
+
+  document.getElementById("total").innerText =
+    "TOTAL: Rp " + total.toLocaleString("id-ID");
+
+  document.getElementById("nota").innerText =
+    "Nama: " + nama +
+    "\nTanggal: " + tanggal + " " + jam +
+    "\nJenis: " + jenis +
+    "\nJumlah: " + jumlah + " KG" +
+    "\nHarga / KG: Rp " + harga.toLocaleString("id-ID") +
+    "\nTOTAL: Rp " + total.toLocaleString("id-ID");
+
+  document.getElementById("wa").href =
+    "https://wa.me/6282132698172?text=" +
+    encodeURIComponent(
+      "Halo Badawi Farm,\n\n" +
+      "Nama: " + nama + "\n" +
+      "Tanggal: " + tanggal + " " + jam + "\n" +
+      "Jenis: " + jenis + "\n" +
+      "Jumlah: " + jumlah + " KG\n" +
+      "Total: Rp " + total.toLocaleString("id-ID")
+    );
+}
 </script>
+
 </body>
 </html>
