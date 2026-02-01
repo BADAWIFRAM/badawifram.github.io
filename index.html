@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Badawi Farm</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(to bottom, #0f172a, #020617);
+      color: #fff;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+    h1 {
+      margin-top: 10px;
+      font-size: 34px;
+    }
+    p {
+      color: #cbd5f5;
+      line-height: 1.6;
+    }
+    .divider {
+      height: 1px;
+      background: #334155;
+      margin: 20px 0;
+    }
+    .badge {
+      display: inline-block;
+      background: #2563eb;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    .stock {
+      background: #16a34a;
+      padding: 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+    .box {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 12px;
+      margin: 12px 0;
+      text-align: left;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-top: 6px;
+      font-size: 16px;
+    }
+    .total {
+      font-size: 20px;
+      font-weight: bold;
+      color: #22c55e;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .eceran {
+      background: #facc15;
+      color: #000;
+    }
+    .grosir {
+      background: #22c55e;
+      color: #000;
+    }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="badge">⚡ Pelayanan Cepat • Langsung dari Peternakan</div>
+
+  <h1>BADAWI FARM</h1>
+  <p>Supplier Telur Ayam Petelur • Grosir & Eceran</p>
+
+  <div class="divider"></div>
+
+  <p>📍 Jepara, Jawa Tengah – Slagi<br>
+     Jl. Rangga Kusuma RT 13 RW 3</p>
+  <p>⏰ Jam Operasional: 10.00 – 17.00</p>
+
+  <div class="stock">📦 Stok Hari Ini: TANYA LEWAT WA</div>
+
+  <!-- INPUT PEMBELIAN -->
+  <div class="box">
+    <label>Jenis Pembelian</label>
+    <select id="jenis" onchange="hitung()">
+      <option value="eceran">Eceran (Rp 27.500 / KG)</option>
+      <option value="grosir">Grosir (Rp 25.800 / KG)</option>
+    </select>
+
+    <label style="margin-top:10px;">Jumlah (KG)</label>
+    <input type="number" id="jumlah" placeholder="Contoh: 10" oninput="hitung()">
+
+    <div class="total" id="totalHarga">Total: Rp 0</div>
+
+    <div id="warning" style="display:none;color:#f87171;margin-top:8px;">
+      Minimal pembelian GROSIR adalah 10 KG
+    </div>
+  </div>
+
+  <!-- NOTA -->
+  <div class="box" id="notaBox" style="display:none;">
+    <h3 style="text-align:center;margin-top:0;">🧾 NOTA PEMBELIAN</h3>
+    <div class="divider"></div>
+
+    <p>Jenis: <b id="nJenis">-</b></p>
+    <p>Jumlah: <b id="nJumlah">-</b></p>
+    <p>Harga / KG: <b id="nHarga">-</b></p>
+
+    <div class="divider"></div>
+
+    <p style="font-size:20px;">
+      TOTAL: <b id="nTotal" style="color:#22c55e;">Rp 0</b>
+    </p>
+  </div>
+
+  <a id="btnWa" class="btn eceran" href="#">
+    🛒 Pesan via WhatsApp
+  </a>
+
+  <footer>
+    Pembayaran: Tunai • Bank • DANA • ShopeePay • Crypto<br>
+    © Badawi Farm
+  </footer>
+
+</div>
+
+<script>
+  const hargaEceran = 27500;
+  const hargaGrosir = 25800;
+  const minimalGrosir = 10;
+
+  function hitung() {
+    const jenis = document.getElementById("jenis").value;
+    const jumlah = Number(document.getElementById("jumlah").value || 0);
+    const warning = document.getElementById("warning");
+    const btn = document.getElementById("btnWa");
+    const notaBox = document.getElementById("notaBox");
+
+    const harga = jenis === "eceran" ? hargaEceran : hargaGrosir;
+    const total = jumlah * harga;
+
+    document.getElementById("totalHarga").innerText =
+      "Total: Rp " + total.toLocaleString("id-ID");
+
+    if (jenis === "grosir" && jumlah < minimalGrosir) {
+      warning.style.display = "block";
+      notaBox.style.display = "none";
+      btn.style.opacity = "0.5";
+      btn.style.pointerEvents = "none";
+      btn.href = "#";
+      return;
+    } else {
+      warning.style.display = "none";
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    }
+
+    notaBox.style.display = jumlah > 0 ? "block" : "none";
+
+    document.getElementById("nJenis").innerText = jenis.toUpperCase();
+    document.getElementById("nJumlah").innerText = jumlah + " KG";
+    document.getElementById("nHarga").innerText =
+      "Rp " + harga.toLocaleString("id-ID");
+    document.getElementById("nTotal").innerText =
+      "Rp " + total.toLocaleString("id-ID");
+
+    const waText =
+      `🧾 NOTA BADAWI FARM%0A` +
+      `Jenis: ${jenis.toUpperCase()}%0A` +
+      `Jumlah: ${jumlah} KG%0A` +
+      `Harga/kg: Rp ${harga.toLocaleString("id-ID")}%0A` +
+      `TOTAL: Rp ${total.toLocaleString("id-ID")}`;
+
+    btn.href = `https://wa.me/6282132698172?text=${waText}`;
+    btn.className = jenis === "eceran" ? "btn eceran" : "btn grosir";
+  }
+</script>
+
+</body>
+</html>
