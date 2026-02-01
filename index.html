@@ -201,11 +201,11 @@ function hitung() {
   const jumlah = Number(document.getElementById("jumlah").value || 0);
   const harga = jenis === "eceran" ? 27500 : 25800;
 
-  if (jenis === "grosir" && jumlah > 0 && jumlah < 10) {
+  if (jenis === "grosir" && jumlah > 0 && jumlah < 5) {
     document.getElementById("total").innerText =
-      "❌ Minimal Grosir 10 KG";
+      "❌ Minimal Grosir 5 KG";
     document.getElementById("nota").innerText =
-      "⚠️ Pembelian grosir minimal 10 KG";
+      "⚠️ Pembelian grosir minimal 5 KG";
     return;
   }
 
