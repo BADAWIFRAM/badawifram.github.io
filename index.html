@@ -24,7 +24,7 @@ h1 {
 .subtitle {
   text-align: center;
   color: #cbd5e1;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 .box {
   background: #1e293b;
@@ -52,7 +52,6 @@ input, select {
   margin-top: 15px;
   font-size: 22px;
   font-weight: bold;
-  color: #22c55e;
   text-align: center;
 }
 .note {
@@ -61,6 +60,7 @@ input, select {
   padding: 12px;
   border-radius: 10px;
   font-size: 14px;
+  white-space: pre-line;
 }
 a.btn {
   display: block;
@@ -73,6 +73,10 @@ a.btn {
   text-decoration: none;
   border-radius: 10px;
 }
+a.btn.disabled {
+  background: #475569;
+  pointer-events: none;
+}
 footer {
   margin-top: 25px;
   text-align: center;
@@ -83,7 +87,7 @@ footer {
   display: flex;
   gap: 8px;
   justify-content: center;
-  margin-top: 10px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 .badge span {
@@ -91,6 +95,21 @@ footer {
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 12px;
+}
+
+/* STATUS STOK */
+.stock {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.stock.on {
+  background: #16a34a;
+}
+.stock.off {
+  background: #dc2626;
 }
 </style>
 </head>
@@ -106,6 +125,9 @@ footer {
   <span>✅ Fresh Harian</span>
   <span>🚚 Bisa Kirim</span>
 </div>
+
+<!-- STATUS STOK -->
+<div id="statusStok" class="stock on">🟢 STOK TERSEDIA</div>
 
 <div class="box">
   <label>Nama Pembeli</label>
@@ -123,9 +145,7 @@ footer {
 
   <div class="total" id="total">TOTAL: Rp 0</div>
 
-  <div class="note" id="nota">
-    🧾 Nota akan muncul di sini
-  </div>
+  <div class="note" id="nota">🧾 Nota akan muncul di sini</div>
 </div>
 
 <a class="btn" id="wa" href="#">🛒 Pesan via WhatsApp</a>
@@ -138,7 +158,30 @@ footer {
 </div>
 
 <script>
+// 🔧 UBAH DI SINI SAJA
+let stokTersedia = true; // true = ON | false = HABIS
+
+function updateStok() {
+  const status = document.getElementById("statusStok");
+  const btn = document.getElementById("wa");
+
+  if (stokTersedia) {
+    status.className = "stock on";
+    status.innerText = "🟢 STOK TERSEDIA";
+    btn.classList.remove("disabled");
+  } else {
+    status.className = "stock off";
+    status.innerText = "🔴 STOK HABIS";
+    btn.classList.add("disabled");
+    btn.innerText = "❌ Stok Habis";
+    document.getElementById("nota").innerText =
+      "⚠️ Maaf, stok telur sedang habis.\nSilakan hubungi kembali nanti.";
+  }
+}
+
 function hitung() {
+  if (!stokTersedia) return;
+
   const nama = document.getElementById("nama").value || "-";
   const jenis = document.getElementById("jenis").value;
   const jumlah = Number(document.getElementById("jumlah").value || 0);
@@ -161,24 +204,20 @@ function hitung() {
     "TOTAL: Rp " + total.toLocaleString("id-ID");
 
   document.getElementById("nota").innerText =
-    "Nama: " + nama +
-    "\nTanggal: " + tanggal + " " + jam +
-    "\nJenis: " + jenis +
-    "\nJumlah: " + jumlah + " KG" +
-    "\nHarga / KG: Rp " + harga.toLocaleString("id-ID") +
-    "\nTOTAL: Rp " + total.toLocaleString("id-ID");
+    "🧾 NOTA BADAWI FARM\n" +
+    "Nama   : " + nama + "\n" +
+    "Tanggal: " + tanggal + " " + jam + "\n" +
+    "Jenis  : " + jenis + "\n" +
+    "Jumlah : " + jumlah + " KG\n" +
+    "Harga  : Rp " + harga.toLocaleString("id-ID") + "\n" +
+    "TOTAL  : Rp " + total.toLocaleString("id-ID");
 
   document.getElementById("wa").href =
     "https://wa.me/6282132698172?text=" +
-    encodeURIComponent(
-      "Halo Badawi Farm,\n\n" +
-      "Nama: " + nama + "\n" +
-      "Tanggal: " + tanggal + " " + jam + "\n" +
-      "Jenis: " + jenis + "\n" +
-      "Jumlah: " + jumlah + " KG\n" +
-      "Total: Rp " + total.toLocaleString("id-ID")
-    );
+    encodeURIComponent(document.getElementById("nota").innerText);
 }
+
+updateStok();
 </script>
 
 </body>
