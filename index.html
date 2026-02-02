@@ -199,7 +199,7 @@ function hitung() {
   const nama = document.getElementById("nama").value || "-";
   const jenis = document.getElementById("jenis").value;
   const jumlah = Number(document.getElementById("jumlah").value || 0);
-  const harga = jenis === "eceran" ? 27500 : 25800;
+  const harga = jenis === "eceran" ? 28000 : 26000;
 
   if (jenis === "grosir" && jumlah > 0 && jumlah < 5) {
     document.getElementById("total").innerText =
